@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/nuevaventa"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva Venta</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-warning  text-white">
+        <h2 class="mb-0">Lista de Ventas</h2>
+      </div>
+      <div class="card-body">
+        
+        <!-- Mensaje de error -->
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+  
+        <!-- Tabla de ventas -->
+        <div class="table-responsive">
+          <table *ngIf="ventas.length > 0; else noVentas" class="table table-hover table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Cliente ID</th>
+                <th scope="col">Fecha de Venta</th>
+                <th scope="col">Total</th>
+                <th scope="col">Ver detalles</th>
+                <th scope="col">Borrar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let venta of ventas">
+                <td>{{ venta.id }}</td>
+                <td>{{ venta.clienteId }}</td>
+                <td>{{ venta.fechaVenta | date: 'yyyy-MM-dd' }}</td>
+                <td>{{ venta.total | currency }}</td>
+                <td>
+                  <button class="btn btn-outline-primary" routerLink="/detalleventas/{{venta.id}}">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-danger"  (click)="borrarVenta(venta.id)">
+                    <i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <!-- Mensaje cuando no hay ventas -->
+        <ng-template #noVentas>
+          <div class="alert alert-info text-center" role="alert">
+            No hay ventas disponibles.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Detalles de la Venta</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="venta">
+          <h3>Cliente: {{ clienteNombre }}</h3>
+          <p><strong>ID de Venta:</strong> {{ venta.id }}</p>
+          <p><strong>Fecha de Venta:</strong> {{ venta.fechaVenta | date }}</p>
+  
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th>ID del Producto</th>
+                <th>Nombre del Producto</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of productos">
+                <td>{{ producto.id }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precioUnitario | currency }}</td>
+                <td>{{ producto.cantidadStock }}</td>
+                <td>{{ producto.precioUnitario * producto.cantidadStock | currency }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <div *ngIf="error" class="alert alert-danger mt-4">
+          {{ error }}
+        </div>
+  
+        <button class="btn btn-secondary mt-4" (click)="cancelar()">Volver a Ventas</button>
+      </div>
+    </div>
+  </div>
+  

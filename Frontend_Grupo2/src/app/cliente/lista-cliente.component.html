@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/nuevo"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Cliente</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container cliente-lista-container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Lista de Clientes</h2>
+      </div>
+      <div class="card-body">
+        <!-- Mensaje de error -->
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+  
+        <!-- Tabla de clientes -->
+        <div class="table-responsive">
+          <table *ngIf="clientes.length > 0; else noClientes" class="table table-hover table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Fecha de Nacimiento</th>
+                <th scope="col">Detalles</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Borrar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cliente of clientes">
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>{{ cliente.telefono || 'No disponible' }}</td>
+                <td>{{ cliente.direccion || 'No disponible' }}</td>
+                <td>{{ cliente.fechaNacimiento || 'No disponible' }}</td>
+                <td>
+                  <button class="btn btn-outline-info" routerLink="/detalle/{{cliente.id}}">
+                    <i class="fa fa-eye" aria-hidden="true"></i></button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-warning" routerLink="/editar/{{cliente.id}}">
+                    <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-danger" (click)="borrarCliente(cliente.id)">
+                    <i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <!-- Mensaje cuando no hay clientes -->
+        <ng-template #noClientes>
+          <div class="alert alert-info text-center" role="alert">
+            No hay clientes disponibles.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  

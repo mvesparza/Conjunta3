@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-warning text-dark">
+        <h2>Nueva Venta</h2>
+      </div>
+      <div class="card-body">
+        <form #ventaForm="ngForm" (ngSubmit)="crearVenta(ventaForm)">
+          
+          <div class="mb-3">
+            <label for="clienteSelect" class="form-label">Seleccionar Cliente</label>
+            <select id="clienteSelect" class="form-control" (change)="seleccionarCliente($event)" required>
+              <option value="" disabled selected>Seleccione un cliente</option>
+              <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }}</option>
+            </select>
+            <div *ngIf="!venta.clienteId && ventaForm.touched" class="text-danger">
+              El Cliente es obligatorio.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="fechaVenta" class="form-label">Fecha de Venta</label>
+            <input id="fechaVenta" type="date" name="fechaVenta" [(ngModel)]="venta.fechaVenta" class="form-control" required />
+            <div *ngIf="ventaForm.controls['fechaVenta']?.invalid && ventaForm.controls['fechaVenta']?.touched" class="text-danger">
+              La Fecha de Venta es obligatoria.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="total" class="form-label">Total</label>
+            <input id="total" type="number" name="total" [(ngModel)]="venta.total" class="form-control" required />
+            <div *ngIf="ventaForm.controls['total']?.invalid && ventaForm.controls['total']?.touched" class="text-danger">
+              El Total es obligatorio y debe ser mayor o igual a 0.
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-primary" [disabled]="ventaForm.invalid">Crear Venta</button>
+          <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

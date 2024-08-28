@@ -1,0 +1,26 @@
+  <div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Detalles del Cliente</h2>
+      </div>
+      <div class="card-body">
+        
+        <!-- Mensaje de error -->
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+  
+        <!-- Detalles del cliente -->
+        <div *ngIf="cliente">
+          <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+          <p><strong>Email:</strong> {{ cliente.email }}</p>
+          <p><strong>Teléfono:</strong> {{ cliente.telefono || 'N/A' }}</p>
+          <p><strong>Dirección:</strong> {{ cliente.direccion || 'N/A' }}</p>
+          <p><strong>Fecha de Nacimiento:</strong> {{ cliente.fechaNacimiento || 'N/A' }}</p>
+          
+          <button class="btn btn-primary" (click)="volver()">Volver a la lista</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h2 class="mb-0">Detalles del Producto</h2>
+        </div>
+        <div class="card-body">
+            
+            <!-- Mensaje de error -->
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+  
+            <!-- Información del producto -->
+            <div *ngIf="producto">
+                <h3 class="mb-3">{{ producto.nombre }}</h3>
+                <p><strong>Precio Unitario:</strong> {{ producto.precioUnitario | currency }}</p>
+                <p><strong>Cantidad en Stock:</strong> {{ producto.cantidadStock }}</p>
+                <button class="btn btn-success" (click)="volverLista()">Volver a la Lista</button>
+            </div>
+        </div>
+    </div>
+</div>

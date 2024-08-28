@@ -1,0 +1,60 @@
+<div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Crear Nuevo Cliente</h2>
+      </div>
+      <div class="card-body">
+        
+        <!-- Mensaje de error -->
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+        
+        <!-- Formulario para crear un nuevo cliente -->
+        <form #clienteForm="ngForm" (ngSubmit)="crearCliente(clienteForm)" novalidate>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required #nombre="ngModel">
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="invalid-feedback">
+              <div *ngIf="nombre.errors?.['required']">El nombre es requerido.</div>
+            </div>
+          </div>
+  
+          <div class="form-group mt-3">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" [(ngModel)]="cliente.email" name="email" required #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+              <div *ngIf="email.errors?.['required']">El email es requerido.</div>
+              <div *ngIf="email.errors?.['email']">El email no es válido.</div>
+            </div>
+          </div>
+  
+          <div class="form-group mt-3">
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" class="form-control" [(ngModel)]="cliente.telefono" name="telefono" #telefono="ngModel">
+            <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="invalid-feedback">
+              <div *ngIf="telefono.errors?.['pattern']">El teléfono no es válido.</div>
+            </div>
+          </div>
+  
+          <div class="form-group mt-3">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" class="form-control" [(ngModel)]="cliente.direccion" name="direccion" #direccion="ngModel">
+          </div>
+  
+          <div class="form-group mt-3">
+            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+            <input type="date" id="fechaNacimiento" class="form-control" [(ngModel)]="cliente.fechaNacimiento" name="fechaNacimiento" #fechaNacimiento="ngModel">
+          </div>
+  
+          <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary" [disabled]="clienteForm.invalid">Crear Cliente</button>
+            <button type="button" class="btn btn-secondary ms-2" (click)="router.navigate(['/lista'])">Cancelar</button>
+        </div>
+        
+        </form>
+        
+      </div>
+    </div>
+  </div>
+  
