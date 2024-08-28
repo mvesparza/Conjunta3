@@ -1,0 +1,30 @@
+server:
+  port: 8085
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: ventas-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/ventas/**
+            - Path=/api/detalles-venta/**
+          filters:
+            - RewritePath=/api/(?<path>.*), /${path}
+
+        - id: clientes-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/clientes/**
+          filters:
+            - RewritePath=/api/(?<path>.*), /${path}
+
+        - id: inventario-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/inventario/**
+          filters:
+            - RewritePath=/api/(?<path>.*), /${path}
